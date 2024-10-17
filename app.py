@@ -26,7 +26,7 @@ st.video("https://www.youtube.com/watch?v=LNw8Nl3uDsQ")  # Add more videos as ne
 st.subheader("Instagram Videos")
 st.write("Instagram videos from PeachFPV")
 st.components.v1.html("""
-<iframe width="320" height="440" src="https://www.instagram.com/p/C_5qnkERKCq/embed" 
+<iframe width="320" height="440" src="https://www.instagram.com/p/DAV1cuSPKSo/embed"
 frameborder="0" scrolling="no" allowtransparency="true"></iframe>
 """, height=500)  # Replace 'your_instagram_post_id' with actual Instagram post ID
 
