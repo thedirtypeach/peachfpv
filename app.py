@@ -17,39 +17,85 @@ Check out our latest video work below, and don't hesitate to contact us for more
 # Video Section
 st.header("Video Portfolio")
 
-# YouTube video embedding
-st.subheader("YouTube Videos")
-st.video("https://www.youtube.com/watch?v=FT0mK3k8gqc")  # Replace with your YouTube video URL
-st.video("https://www.youtube.com/watch?v=LNw8Nl3uDsQ")  # Add more videos as needed
+# Create columns to display videos side by side
+col1, col2 = st.columns(2)
 
-# Instagram embedding (Streamlit does not natively support Instagram embeds, so this uses an iframe)
-st.subheader("Instagram Videos")
-st.write("Instagram videos from PeachFPV")
-st.components.v1.html("""
-<iframe width="320" height="440" src="https://www.instagram.com/p/DAV1cuSPKSo/embed"
-frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-""", height=500)  # Replace 'your_instagram_post_id' with actual Instagram post ID
+with col1:
+    st.subheader("Watercross")
+    st.video("https://www.youtube.com/watch?v=FT0mK3k8gqc")  # Replace with your YouTube video URL
 
-# Service Packages Section
+with col2:
+    st.subheader("Drift")
+    st.video("https://www.youtube.com/watch?v=LNw8Nl3uDsQ")  # Add more videos as needed
+
+with col1:
+    st.subheader("Cinematic")
+    st.video("https://www.youtube.com/watch?v=ulDy7NVAvWM")  # Replace with your YouTube video URL
+
+with col2:
+    st.subheader("Business")
+    st.video("https://www.youtube.com/watch?v=Bvofbvz3CHE")  # Add more videos as needed
+
+# Instagram embedding (improved look)
+st.header("Instagram Videos")
+st.write("Check out our latest Instagram content directly from [PeachFPV](https://www.instagram.com/peachfpv/)")
+instagram_posts = [
+    "https://www.instagram.com/p/DAV1cuSPKSo/embed",  # Replace with actual post links
+    "https://www.instagram.com/p/CyQWDZTpA7c/embed"   # Add more if needed
+]
+
+# Display Instagram posts in two columns dynamically
+for index, post in enumerate(instagram_posts):
+    if index % 2 == 0:
+        col1, col2 = st.columns(2)
+    with col1 if index % 2 == 0 else col2:
+        st.components.v1.html(f"""
+        <iframe width="320" height="440" src="{post}"
+        frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+        """, height=500)
+
+# Service Packages Section with columns
 st.header("Our Services")
 st.write("""
 **PeachFPV** offers a range of aerial videography services tailored for extreme sports enthusiasts. 
-Whether you're into drifting, skateboarding, or any action-packed sport, we can capture the moments from above!
+We specialize in drifting, watercross, snowmobiling, business, and even Real Estate.
 """)
 
-# Tiers of services with descriptions
-st.subheader("Service Packages")
-st.write("""
-- **Basic Package ($199)**: Includes 2-3 short-form videos (up to 60 seconds each), and raw footage.
-- **Pro Package**: Includes extended videos, advanced edits, and a highlight reel.
-- **Premium Package**: Includes full event coverage, in-depth editing, and personalized video production.
-""")
+# Use columns for service packages
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.subheader("Basic Package")
+    st.write("""
+    **$199**  
+    - 2-3 short-form videos (30 to 60 seconds each)  
+    - Raw footage included
+    """)
+
+with col2:
+    st.subheader("Pro Package")
+    st.write("""
+    **$349**
+    - All previously mentioned tiers
+    - Extended video
+    - Highlight reel included
+    """)
+
+with col3:
+    st.subheader("Premium Package")
+    st.write("""
+    **$799**
+    - All previously mentioned tiers
+    - Full event coverage
+    - In-depth editing  
+    - Personalized video production
+    """)
 
 # Contact information
 st.header("Get in Touch")
 st.write("""
 If you're interested in our services or have any questions, feel free to reach out via [Instagram](https://www.instagram.com/peachfpv/) 
-or send us an email at: peachfpv@example.com.
+or send us an email at: peach@impactmodulation.com.
 """)
 
 # Footer
