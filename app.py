@@ -3,100 +3,125 @@ import streamlit as st
 # Set page configuration
 st.set_page_config(page_title="PeachFPV Drone Services", layout="wide")
 
-# Title and introduction
-st.title("PeachFPV - Drone Videography Services")
-st.subheader("Aerial Videography for Extreme Sports")
+# Main sections as functions for modularity
 
-# Introduction section
-st.write("""
-Welcome to PeachFPV's official page for showcasing aerial videography! 
-We specialize in capturing high-energy action sports and drift cars from dynamic perspectives. 
-Check out our latest video work below, and don't hesitate to contact us for more information on our services.
-""")
+# Header and Title
+def header():
+    st.title("PeachFPV - Drone Videography Services")
+    st.subheader("Aerial Videography for Extreme Sports")
 
-# Video Section
-st.header("Video Portfolio")
-
-# Create columns to display videos side by side
-col1, col2 = st.columns(2)
-
-with col1:
-    st.subheader("Watercross")
-    st.video("https://www.youtube.com/watch?v=FT0mK3k8gqc")  # Replace with your YouTube video URL
-
-with col2:
-    st.subheader("Drift")
-    st.video("https://www.youtube.com/watch?v=LNw8Nl3uDsQ")  # Add more videos as needed
-
-with col1:
-    st.subheader("Cinematic")
-    st.video("https://www.youtube.com/watch?v=ulDy7NVAvWM")  # Replace with your YouTube video URL
-
-with col2:
-    st.subheader("Business")
-    st.video("https://www.youtube.com/watch?v=Bvofbvz3CHE")  # Add more videos as needed
-
-# Instagram embedding (improved look)
-st.header("Instagram Videos")
-st.write("Check out our latest Instagram content directly from [PeachFPV](https://www.instagram.com/peachfpv/)")
-instagram_posts = [
-    "https://www.instagram.com/p/DAV1cuSPKSo/embed",  # Replace with actual post links
-    "https://www.instagram.com/p/CyQWDZTpA7c/embed"   # Add more if needed
-]
-
-# Display Instagram posts in two columns dynamically
-for index, post in enumerate(instagram_posts):
-    if index % 2 == 0:
-        col1, col2 = st.columns(2)
-    with col1 if index % 2 == 0 else col2:
-        st.components.v1.html(f"""
-        <iframe width="320" height="440" src="{post}"
-        frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-        """, height=500)
-
-# Service Packages Section with columns
-st.header("Our Services")
-st.write("""
-**PeachFPV** offers a range of aerial videography services tailored for extreme sports enthusiasts. 
-We specialize in drifting, watercross, snowmobiling, business, and even Real Estate.
-""")
-
-# Use columns for service packages
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.subheader("Basic Package")
+def introduction():
     st.write("""
-    **$199**  
-    - 2-3 short-form videos (30 to 60 seconds each)  
-    - Raw footage included
+    Welcome to PeachFPV's official page for showcasing aerial videography!
+    We specialize in capturing high-energy action sports and drift cars from dynamic perspectives.
+    Check out our latest video work below, and don’t hesitate to reach out for more information on our services.
     """)
 
-with col2:
-    st.subheader("Pro Package")
+# Video Portfolio Section
+def video_portfolio():
+    st.header("Video Portfolio")
+    col1, col2 = st.columns(2)
+
+    # Video embeds with titles and descriptions
+    videos = [
+        {"title": "Watercross", "url": "https://www.youtube.com/watch?v=FT0mK3k8gqc", "description": "An intense watercross shoot with fast, dynamic shots."},
+        {"title": "Drift", "url": "https://www.youtube.com/watch?v=LNw8Nl3uDsQ", "description": "Capturing drift cars in high-speed action."},
+        {"title": "Cinematic", "url": "https://www.youtube.com/watch?v=ulDy7NVAvWM", "description": "Showcasing a cinematic perspective with drone footage."},
+        {"title": "Business", "url": "https://www.youtube.com/watch?v=Bvofbvz3CHE", "description": "Drone videography for business applications."}
+    ]
+
+    # Loop through videos with alternating columns
+    for i, video in enumerate(videos):
+        with col1 if i % 2 == 0 else col2:
+            st.subheader(video["title"])
+            st.video(video["url"])
+            st.caption(video["description"])
+
+# Instagram Feed
+def instagram_feed():
+    st.header("Instagram Videos")
+    st.write("Check out our latest Instagram content directly from [PeachFPV](https://www.instagram.com/peachfpv/)")
+    instagram_posts = [
+        "https://www.instagram.com/p/DAV1cuSPKSo/embed",  # Replace with actual post links
+        "https://www.instagram.com/p/CyQWDZTpA7c/embed"
+    ]
+
+    for index, post in enumerate(instagram_posts):
+        if index % 2 == 0:
+            col1, col2 = st.columns(2)
+        with col1 if index % 2 == 0 else col2:
+            st.components.v1.html(f"""
+            <iframe width="320" height="440" src="{post}"
+            frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+            """, height=500)
+
+# Service Packages Section
+def service_packages():
+    st.header("Our Services")
     st.write("""
-    **$349**
-    - All previously mentioned tiers
-    - Extended video
-    - Highlight reel included
+    **PeachFPV** offers a range of aerial videography services tailored for extreme sports enthusiasts. 
+    We specialize in drifting, watercross, snowmobiling, business, and even Real Estate.
     """)
 
-with col3:
-    st.subheader("Premium Package")
+    packages = [
+        {
+            "name": "Basic Package",
+            "price": "$199",
+            "details": [
+                "2-3 short-form videos (30 to 60 seconds each)",
+                "Raw footage included"
+            ]
+        },
+        {
+            "name": "Pro Package",
+            "price": "$349",
+            "details": [
+                "All features of Basic Package",
+                "Extended video",
+                "Highlight reel included"
+            ]
+        },
+        {
+            "name": "Premium Package",
+            "price": "$799",
+            "details": [
+                "All features of Pro Package",
+                "Full event coverage",
+                "In-depth editing",
+                "Personalized video production"
+            ]
+        }
+    ]
+
+    # Columns for service packages
+    cols = st.columns(3)
+    for col, package in zip(cols, packages):
+        with col:
+            st.subheader(package["name"])
+            st.write(f"**{package['price']}**")
+            for detail in package["details"]:
+                st.write(f"- {detail}")
+
+# Contact Information Section
+def contact_section():
+    st.header("Get in Touch")
     st.write("""
-    **$799**
-    - All previously mentioned tiers
-    - Full event coverage
-    - In-depth editing  
-    - Personalized video production
+    Interested in our services or have questions? Reach out via [Instagram](https://www.instagram.com/peachfpv/)
+    or or [Facebook](https://www.facebook.com/profile.php?id=61560869693299)
     """)
+    # Subscription form for updates
+    #st.subheader("Stay Updated")
+    #email = st.text_input("Enter your email to subscribe:")
+    #if st.button("Subscribe"):
+        #if email:
+        #    st.write(f"Thank you for subscribing, {email}!")
+        #else:
+        #    st.write("Please enter a valid email address.")
 
-# Contact information
-st.header("Get in Touch")
-st.write("""
-If you're interested in our services or have any questions, feel free to reach out via [Instagram](https://www.instagram.com/peachfpv/) 
-or send us an email at: peach@impactmodulation.com.
-""")
-
-# Footer
-st.write("Follow us on social media for the latest updates and behind-the-scenes footage of our shoots!")
+# Main Page Layout
+header()
+introduction()
+video_portfolio()
+instagram_feed()
+service_packages()
+contact_section()
