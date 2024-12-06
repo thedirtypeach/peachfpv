@@ -1,14 +1,77 @@
 import streamlit as st
 
 # Set page configuration
-st.set_page_config(page_title="PeachFPV Drone Services", layout="wide")
+st.set_page_config(page_title="PeachFPV", layout="wide")
+
+# Define custom CSS
+st.markdown("""
+    <style>
+        /* Global font and color settings */
+        * {
+            font-family: 'Roboto', sans-serif;
+            color: #d1d1d1;
+        }
+        
+        /* Background color and color scheme */
+        body {
+            background-color: #f0f2f6;
+        }
+
+        h1, h2, h3, h4 {
+            color: #2d6a4f;
+        }
+
+        /* Header spacing and style */
+        .header {
+            padding: 40px;
+            text-align: center;
+            background-color: #d4a373;
+            color: #fff;
+        }
+
+        /* Footer styling */
+        .footer {
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            background-color: #2d6a4f;
+            text-align: center;
+            color: #fff;
+        }
+
+        /* Video hover effect */
+        .video-container {
+            transition: transform 0.3s ease;
+        }
+
+        .video-container:hover {
+            transform: scale(1.05);
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # Main sections as functions for modularity
 
 # Header and Title
 def header():
-    st.title("PeachFPV - Drone Videography Services")
-    st.subheader("Aerial Videography for Extreme Sports")
+    st.markdown("<div class='header'><h1>PeachFPV - Aerial Videography Services</h1></div>", unsafe_allow_html=True)
+    #st.subheader("Aerial Videography for Extreme Sports")
+
+    # Hero section
+    st.markdown("""
+        <div style='
+            background: url(https://example.com/your-background-video.mp4) no-repeat center center;
+            background-size: cover;
+            height: 400px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        '>
+            <h1 style="font-size: 2.5em; font-weight: bold;">Capturing Extreme Sports from Above</h1>
+        </div>
+    """, unsafe_allow_html=True)
 
 def introduction():
     st.write("""
@@ -30,11 +93,12 @@ def video_portfolio():
         {"title": "Business", "url": "https://www.youtube.com/watch?v=Bvofbvz3CHE", "description": "Drone videography for business applications."}
     ]
 
-    # Loop through videos with alternating columns
-    for i, video in enumerate(videos):
-        with col1 if i % 2 == 0 else col2:
-            st.subheader(video["title"])
-            st.video(video["url"])
+    # Create a grid layout for videos
+    cols = st.columns(2)  # Adjust the number for layout
+    for index, video in enumerate(videos):
+        with cols[index % 2]:  # Adjust based on the column count
+            st.markdown(f"### {video['title']}")
+            st.video(video['url'])
             st.caption(video["description"])
 
 # Instagram Feed
@@ -60,32 +124,37 @@ def service_packages():
     st.header("Our Services")
     st.write("""
     **PeachFPV** offers a range of aerial videography services tailored for extreme sports enthusiasts. 
-    We specialize in drifting, watercross, snowmobiling, business, and even Real Estate.
+    We specialize in drifting, watercross, snowmobiling, business applications, and even Real Estate.
     """)
 
     packages = [
         {
             "name": "Basic Package",
-            "price": "$199",
+            "price": "Message for pricing",
             "details": [
+                "Aerial video of your choosing",
+                "1 to 2 hours of fly time",
                 "2-3 short-form videos (30 to 60 seconds each)",
-                "Raw footage included"
+                "Raw footage shared via Google Drive"
             ]
         },
         {
             "name": "Pro Package",
-            "price": "$349",
+            "price": "Message for pricing",
             "details": [
-                "All features of Basic Package",
-                "Extended video",
-                "Highlight reel included"
+                "All previous tiers",
+                "2 to 4 hours of fly time",
+                "2-3 additional videos (or longer formatted videos depending on application)",
+                "Highlight reel"
             ]
         },
         {
             "name": "Premium Package",
-            "price": "$799",
+            "price": "Message for pricing",
             "details": [
-                "All features of Pro Package",
+                "All previous tiers",
+                "6+ hours fly time",
+                "8-10 short-form videos",
                 "Full event coverage",
                 "In-depth editing",
                 "Personalized video production"
@@ -93,12 +162,9 @@ def service_packages():
         }
     ]
 
-    # Columns for service packages
-    cols = st.columns(3)
-    for col, package in zip(cols, packages):
-        with col:
-            st.subheader(package["name"])
-            st.write(f"**{package['price']}**")
+    # Display packages with expanders, iterating through details
+    for package in packages:
+        with st.expander(f"{package['name']} - {package['price']}"):
             for detail in package["details"]:
                 st.write(f"- {detail}")
 
